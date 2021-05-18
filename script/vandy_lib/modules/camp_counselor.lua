@@ -1973,8 +1973,8 @@ end
 
 --- Public-facing API for this part of the Vandy Library. The "Camp Counselor" is my campaign manager, to be used for making any campaign methods or functions.
 ---@usage local vandy_lib = get_vandy_lib() 
----local Counselor = vandy_lib:get_module("camp_counselor")
----Counselor:add_pr_uic("pr_key", "ui.png", "wh_main_emp_empire")
+-- local Counselor = vandy_lib:get_module("camp_counselor")
+-- Counselor:add_pr_uic("pr_key", "ui.png", "wh_main_emp_empire")
 ---@class CounselorAPI
 -- TODO write up methods to run through these via subculture/culture? or naw?
 function Counselor:restrict_units_for_faction(unit_table, faction_key, is_disable)
