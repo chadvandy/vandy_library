@@ -1,2 +1,0 @@
-# !!!!vandy_library
- 

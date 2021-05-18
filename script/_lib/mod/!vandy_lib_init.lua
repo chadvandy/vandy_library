@@ -426,6 +426,7 @@ function vandy_lib:init()
     self:callback_handler()
 
     -- Do debug stuffs.
+    ---@diagnostic disable-next-line
     if vfs.exists("script/vandy_lib/is_debug.txt") then
         self:set_debug(true)
     end

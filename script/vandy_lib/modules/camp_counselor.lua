@@ -1249,9 +1249,10 @@ function tech_ui:set_tech_as_hovered(tech_key)
             ---@param mah_str string
             ---@return string
             local function add_linebreak(mah_str)
+                if mah_str == "" then return "\n" end
                 if not mah_str:ends_with("\n\n") then
-                    if mah_str:ends_with("\n") then 
-                        mah_str = mah_str .. "\n" 
+                    if mah_str:ends_with("\n") then
+                        mah_str = mah_str .. "\n"
                     else
                         mah_str = mah_str .. "\n\n"
                     end
@@ -1261,7 +1262,7 @@ function tech_ui:set_tech_as_hovered(tech_key)
             end
 
             if #exclusives >= 1 then
-                str = str .. "\n"
+                str = add_linebreak(str)
                 if has_tech then
                     str = str .. effect.get_localised_string("vlib_technology_locking")
                 else
@@ -1280,7 +1281,7 @@ function tech_ui:set_tech_as_hovered(tech_key)
     
                 for i = 1, #exclusives do
                     local tech_text = effect.get_localised_string("technologies_onscreen_name_" .. exclusives[i])
-                    if tech_text == "" then tech_text = "TECH TEXT FOR ".. exclusives[i] .." NOT FOUND" end
+                    if tech_text == "" then tech_text = "TECH TEXT FOR [".. exclusives[i] .."] NOT FOUND" end
                     str = str .. "\n    - " .. colour .. tech_text .. colour_end
                 end
 
@@ -1307,12 +1308,12 @@ function tech_ui:set_tech_as_hovered(tech_key)
                     str = string.format(str, lock_str, effect.get_localised_string("vlib_unit"))
                 end
 
-                local colour = units.is_unlock and effect.get_localised_string("vlib_colour_green") or effect.get_localised_string("vlib_colour_red")
+                local colour = effect.get_localised_string("vlib_colour_green")
                 local colour_end = effect.get_localised_string("vlib_colour_end")
 
                 for i = 1, #units do
                     local unit_text = effect.get_localised_string("land_units_onscreen_name_"..units[i])
-                    if unit_text == "" then unit_text = "UNIT TEXT FOR "..units[i].." NOT FOUND!" end
+                    if unit_text == "" then unit_text = "UNIT TEXT FOR ["..units[i].."] NOT FOUND!" end
                     str = str .. "\n\t  - " .. colour .. unit_text .. colour_end
                 end
             end
@@ -1336,12 +1337,12 @@ function tech_ui:set_tech_as_hovered(tech_key)
                     str = string.format(str, lock_str, effect.get_localised_string("vlib_unit"))
                 end
 
-                local colour = units.is_unlock and effect.get_localised_string("vlib_colour_green") or effect.get_localised_string("vlib_colour_red")
+                local colour = effect.get_localised_string("vlib_colour_red")
                 local colour_end = effect.get_localised_string("vlib_colour_end")
 
                 for i = 1, #units do
                     local unit_text = effect.get_localised_string("land_units_onscreen_name_"..units[i])
-                    if unit_text == "" then unit_text = "UNIT TEXT FOR "..units[i].." NOT FOUND!" end
+                    if unit_text == "" then unit_text = "UNIT TEXT FOR ["..units[i].."] NOT FOUND!" end
                     str = str .. "\n\t  - " .. colour .. unit_text .. colour_end
                 end
             end
@@ -1896,12 +1897,8 @@ local function init_listeners()
             if tech:has_units() then
                 local unit_table = tech:get_unit_table(faction_key)
     
-                local states = {"unlock", "lock"}
-                for i = 1,2 do
-                    local state = states[i]
-                    if unit_table[state] then
-                        Counselor:set_units_lock_state(unit_table[state], state, "TODO!", faction_key)
-                    end
+                for state,units in pairs(unit_table) do
+                    Counselor:set_units_lock_state(unit_table[state], state, "TODO!", faction_key)
                 end
             end
         end,
