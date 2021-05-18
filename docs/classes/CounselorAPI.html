@@ -1,0 +1,256 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<head>
+    <title>Vandy Library</title>
+    <link rel="stylesheet" href="../ldoc.css" type="text/css" />
+</head>
+<body>
+
+<div id="container">
+
+<div id="product">
+	<div id="product_logo"></div>
+	<div id="product_name"><big><b></b></big></div>
+	<div id="product_description"></div>
+</div> <!-- id="product" -->
+
+
+<div id="main">
+
+
+<!-- Menu -->
+
+<div id="navigation">
+<br/>
+<h1>VLib</h1>
+
+
+<ul>
+  <li><a href="../index.html">Index</a></li>
+</ul>
+
+<h2>Contents</h2>
+<ul>
+<li><a href="#Functions">Functions</a></li>
+</ul>
+
+
+<h2>Classes</h2>
+<ul class="nowrap">
+  <li><a href="../classes/vandy_lib.html">vandy_lib</a></li>
+  <li><a href="../classes/vlib_camp_counselor.html">vlib_camp_counselor</a></li>
+  <li><a href="../classes/vlib_TechState.html">vlib_TechState</a></li>
+  <li><a href="../classes/vlib_UnitState.html">vlib_UnitState</a></li>
+  <li><a href="../classes/vlib_TechObj.html">vlib_TechObj</a></li>
+  <li><a href="../classes/vlib_UnitObj.html">vlib_UnitObj</a></li>
+  <li><a href="../classes/vlib_pr_manager.html">vlib_pr_manager</a></li>
+  <li><a href="../classes/vlib_pr_obj.html">vlib_pr_obj</a></li>
+  <li><a href="../classes/vlib_TechUI.html">vlib_TechUI</a></li>
+  <li><a href="../classes/vlib_UnitUI.html">vlib_UnitUI</a></li>
+  <li><strong>CounselorAPI</strong></li>
+</ul>
+<h2>Modules</h2>
+<ul class="nowrap">
+  <li><a href="../modules/CampCounselor.html">CampCounselor</a></li>
+</ul>
+
+</div>
+
+<div id="content">
+
+<h1>Class <code>CounselorAPI</code></h1>
+<p></p>
+<p>
+ TODO write up methods to run through these via subculture/culture? or naw?</p>
+
+
+<h2><a href="#Functions">Functions</a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#Counselor:add_pr_uic">Counselor:add_pr_uic (pooled_resource_key, pr_icon_path, filters)</a></td>
+	<td class="summary">Add in-game UI for a Pooled Resource - similar to the UI for Canopic Jars, or the various Vortex Currencies, or otherwise.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Counselor:set_mutually_exclusive_techs">Counselor:set_mutually_exclusive_techs (tech_table, filters)</a></td>
+	<td class="summary">A system to create mutually exclusive technologies - if one is researched, the other[s] are locked, permanently.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Counselor:set_tech_unit_unlock">Counselor:set_tech_unit_unlock (tech_key, unit_table, is_unlock, filters)</a></td>
+	<td class="summary">Provide a list of units to lock behind this tech, and to subsequently unlock upon research.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Counselor:set_techs_lock_state">Counselor:set_techs_lock_state (tech_table, lock_state, lock_reason, filters)</a></td>
+	<td class="summary">Used to set the lock state for a technology.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#Counselor:set_units_lock_state">Counselor:set_units_lock_state (unit_keys, lock_state, lock_reason, filters)</a></td>
+	<td class="summary">Set the lock state for the units provided.</td>
+	</tr>
+</table>
+
+<br/>
+<br/>
+
+
+    <h2 class="section-header "><a name="Functions"></a>Functions</h2>
+    Methods
+    <dl class="function">
+    <dt>
+    <a name = "Counselor:add_pr_uic"></a>
+    <strong>Counselor:add_pr_uic (pooled_resource_key, pr_icon_path, filters)</strong>
+    </dt>
+    <dd>
+    Add in-game UI for a Pooled Resource - similar to the UI for Canopic Jars, or the various Vortex Currencies, or otherwise.  The Pooled Resource MUST be created already in data, and have valid factors, valid text, and be hooked up to each faction provided herein.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">pooled_resource_key</span>
+         string The key for your PR, from pooled_resources_tables.
+        </li>
+        <li><span class="parameter">pr_icon_path</span>
+         string The image path for your PR icon. It should start from the root of a .pack file - so if your file is in mymod.pack/ui/icons/pr_icon.png, you would put in "ui/icons/pr_icon.png", including the file name (must be a .png).
+        </li>
+        <li><span class="parameter">filters</span>
+         table|string Provide a filters table (or a single string, if you're just using one faction key). You can use {faction="faction_key"}, {subculture="subculture_key"}, {culture="culture_key"}, or any combination therein. Any three of those, likewise, can be tables, ie. {faction = {"faction1", "faction2"}}, and you can use all three filters at once, ie. {faction="faction1", subculture = {"subculture1", "subculture2"}}
+        </li>
+    </ul>
+
+
+
+
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example">Counselor:add_pr_uic(<span class="string">"pr_key"</span>, <span class="string">"ui/skins/default/my_icon.png"</span>, <span class="string">"wh_main_emp_empire"</span>)</pre>
+    </ul>
+
+</dd>
+    <dt>
+    <a name = "Counselor:set_mutually_exclusive_techs"></a>
+    <strong>Counselor:set_mutually_exclusive_techs (tech_table, filters)</strong>
+    </dt>
+    <dd>
+    A system to create mutually exclusive technologies - if one is researched, the other[s] are locked, permanently.  Handles the UI and the actual locking of the techs.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">tech_table</span>
+         table<string, table> A table of the relevant techs that are being mutually exclusive'd. Needs to be a table of techs, optionally linked to each techs child key. For instance, without child techs: {"tech_1", "tech_2", "tech_3"}; with child techs: {["tech_1"] = {"child_1", "child_2"}, ["tech_2"] = {"child_3", "child_4"}}
+        </li>
+        <li><span class="parameter">filters</span>
+         table|string Provide a filters table (or a single string, if you're just using one faction key). You can use {faction="faction_key"}, {subculture="subculture_key"}, {culture="culture_key"}, or any combination therein. Any three of those, likewise, can be tables, ie. {faction = {"faction1", "faction2"}}, and you can use all three filters at once, ie. {faction="faction1", subculture = {"subculture1", "subculture2"}}
+        </li>
+    </ul>
+
+
+
+
+    <h3>Usage:</h3>
+    <ul>
+        <li><pre class="example">Counselor:set_mutually_exclusive_techs({<span class="string">"tech_1"</span>, <span class="string">"tech_2"</span>}, <span class="string">"wh_main_emp_empire"</span>)</pre></li>
+        <li><pre class="example">Counselor:set_mutually_exclusive_techs({[<span class="string">"tech_1"</span>] = {<span class="string">"child_1"</span>}, [<span class="string">"tech_2"</span>] = {<span class="string">"child_2"</span>}}, <span class="string">"wh_main_emp_empire"</span>)</pre></li>
+    </ul>
+
+</dd>
+    <dt>
+    <a name = "Counselor:set_tech_unit_unlock"></a>
+    <strong>Counselor:set_tech_unit_unlock (tech_key, unit_table, is_unlock, filters)</strong>
+    </dt>
+    <dd>
+    Provide a list of units to lock behind this tech, and to subsequently unlock upon research.  Set the "is_unlock" bool to false, to handle the opposite interaction - unlock by default, and then LOCK upon research.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">tech_key</span>
+         string The tech behind which to lock your units. Must match the key in "technologies"
+        </li>
+        <li><span class="parameter">unit_table</span>
+         string|table The unit[s] to attach to this tech. You can provide a single unit key `"unit_1"`, or a bunch of them using a table `{"unit_1", "unit_2"}`
+        </li>
+        <li><span class="parameter">is_unlock</span>
+         boolean Set this to true to lock the units by default, and unlock through this tech being research; set this to false to have the reverse behaviour.
+        </li>
+        <li><span class="parameter">filters</span>
+         table|string Provide a filters table (or a single string, if you're just using one faction key). You can use {faction="faction_key"}, {subculture="subculture_key"}, {culture="culture_key"}, or any combination therein. Any three of those, likewise, can be tables, ie. {faction = {"faction1", "faction2"}}, and you can use all three filters at once, ie. {faction="faction1", subculture = {"subculture1", "subculture2"}}
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Counselor:set_techs_lock_state"></a>
+    <strong>Counselor:set_techs_lock_state (tech_table, lock_state, lock_reason, filters)</strong>
+    </dt>
+    <dd>
+    Used to set the lock state for a technology.  This can unlock a previously locked tech, apply a lock to a tech, or completely remove and hide a tech from player and AI.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">tech_table</span>
+         string|table<number,string> A single technology key, or a table of them.
+        </li>
+        <li><span class="parameter">lock_state</span>
+         string|"locked"|"unlocked"|"disabled" Set the state for these locks. Locked means it cannot be used, and has chains on it visually. Unlocked means business as usual. Disabled means it's hidden and unusable.
+        </li>
+        <li><span class="parameter">lock_reason</span>
+         string|nil Provide the reason for the lock, if the lock_state is "locked". Otherwise, this parameter is ignored.
+        </li>
+        <li><span class="parameter">filters</span>
+         table|string Provide a filters table (or a single string, if you're just using one faction key). You can use {faction="faction_key"}, {subculture="subculture_key"}, {culture="culture_key"}, or any combination therein. Any three of those, likewise, can be tables, ie. {faction = {"faction1", "faction2"}}, and you can use all three filters at once, ie. {faction="faction1", subculture = {"subculture1", "subculture2"}}
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "Counselor:set_units_lock_state"></a>
+    <strong>Counselor:set_units_lock_state (unit_keys, lock_state, lock_reason, filters)</strong>
+    </dt>
+    <dd>
+    Set the lock state for the units provided.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">unit_keys</span>
+         string|table<number, string> The unit[s] to lock. Use "unit_key" or {"unit_key", "unit_key_2"}.
+        </li>
+        <li><span class="parameter">lock_state</span>
+         "unlocked"|"locked"|"disabled" Set the lock state to unlocked to have the unit readily available; locked to have the unit restricted, but visible in the UI with an explanation (lock_reason) and a chain around it; or disabled, to have the unit restricted and invisible in the UI.
+        </li>
+        <li><span class="parameter">lock_reason</span>
+         string|nil The reason to list in the UI for the lock. I recommend passing in text grabbed through effect.get_localised_string(). Only necessary if the lock_state is "locked".
+        </li>
+        <li><span class="parameter">filters</span>
+         table|string Provide a filters table (or a single string, if you're just using one faction key). You can use {faction="faction_key"}, {subculture="subculture_key"}, {culture="culture_key"}, or any combination therein. Any three of those, likewise, can be tables, ie. {faction = {"faction1", "faction2"}}, and you can use all three filters at once, ie. {faction="faction1", subculture = {"subculture1", "subculture2"}}
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+</dl>
+
+
+</div> <!-- id="content" -->
+</div> <!-- id="main" -->
+<div id="about">
+<i>generated by <a href="http://github.com/stevedonovan/LDoc">LDoc 1.4.6</a></i>
+<i style="float:right;">Last updated 2021-05-18 17:41:25 </i>
+</div> <!-- id="about" -->
+</div> <!-- id="container" -->
+</body>
+</html>
